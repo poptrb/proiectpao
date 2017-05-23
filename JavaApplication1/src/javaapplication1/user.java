@@ -18,6 +18,7 @@ public class user extends javax.swing.JFrame {
     /**
      * Creates new form user
      */
+    admin formAdmin = new admin();
     public user() {
         initComponents();
         
@@ -38,6 +39,7 @@ public class user extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -66,6 +68,13 @@ public class user extends javax.swing.JFrame {
         jPasswordField1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jPasswordField1.setToolTipText("Introduceti parola aici.");
 
+        jToggleButton1.setText("Logare ca admin");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,10 +85,12 @@ public class user extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jToggleButton1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                        .addComponent(jPasswordField1))
+                    .addComponent(jButton1))
                 .addContainerGap(169, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -95,7 +106,9 @@ public class user extends javax.swing.JFrame {
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToggleButton1)
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         pack();
@@ -104,7 +117,7 @@ public class user extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             if (dbase.checkUser(jTextField1.getText(),jPasswordField1.getText()))
-                System.out.println("registered0");
+                System.out.println("registered!");
             else {
                 System.out.println("Username sau parola gresite!");
             }
@@ -113,10 +126,20 @@ public class user extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        if (dbase.adminLogin(jTextField1.getText(),jPasswordField1.getText()))
+        {
+            new admin().setVisible(true); 
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    /*
      * @param args the command line arguments
      */
+    
     public static dbconnect dbase = new dbconnect();
+    public static dbchestionar dchest = new dbchestionar();
     public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -142,11 +165,18 @@ public class user extends javax.swing.JFrame {
         //</editor-fold>
         
         dbase.connect();
+        dbase.createUser("maria","parola","Maria Milescu", "mari@gmail.com");
+        dbase.createUser("iulian","12345", "Iulian Popescu", "pop@gmail.com");
+        //dbase.deleteUser("iulian");
         dbase.viewUser();
-        
-        dbase.createUser("raluca","parola");
-        dbase.createUser("iulian","12345");
+        String intrebari1[] ={"a1","a2"};
+        String rasp1[] = {"raspunsul 1", "raspunsul 2", "raspunsul 3", "raspunsul 4", "raspunsul 5", "raspunsul 6"};
+        dchest.createChestionar("Muzica5",2,intrebari1,rasp1);
+        dchest.viewChestionar("Muzica5");
+        dchest.deleteChestionar("Muzica5");
         //dbase.deleteUser("mihai");
+        
+        
         System.out.println(dbase.checkUser("iulian","1265"));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -162,5 +192,6 @@ public class user extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

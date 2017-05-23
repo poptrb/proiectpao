@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,15 +19,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class dbconnect {
     public static Connection con = null;
+    public static int nrutilz = 0 ;
     static String url = "jdbc:mysql://localhost:3306/javabase";
-    static    String username = "root";
-    static     String password = "proiectpao";
+    static String username = "root";
+    static String password = "proiectpao";
     public static Connection connect() {
         
-    System.out.println("Connecting database...");
+    System.out.println("Conectare baza de date...");
 
     try (Connection connection = (Connection) DriverManager.getConnection(url, username, password)) {
-        System.out.println("Database connected!");
+        System.out.println("Conectat cu succes!");
         con = connection;
         } 
         
@@ -37,44 +38,48 @@ public class dbconnect {
         return con;
     }
     
-    public static int viewUser() throws SQLException {
-
+    static ArrayList<String> reslist;
+    static String res=null;
+    public static ArrayList<String> viewUser() throws SQLException {
     Statement stmt = null;
     ResultSet rs  = null;
-    int nrutilz=0;
-    String query ="SELECT PersonID, LastName, Parola FROM Users";
+    res=null;
+    String query ="SELECT PersonID, LastName, Parola, username, email FROM Users";
     try {
         con = (Connection) DriverManager.getConnection(url, username, password);
         stmt = con.createStatement();
         rs = stmt.executeQuery(query);
-        if (rs.absolute(1)== false)
-        {
-          
-        }
+        reslist = new ArrayList<String>();
         while (rs.next()) {
             int ID =rs.getInt(1);
-            String nume = rs.getString(2);
-            String parola = rs.getString(3);
-            System.out.println(nume + "\t" + parola +"\t");
-            nrutilz++; 
+            reslist.add(rs.getString(1));
+            reslist.add(rs.getString(2));
+            reslist.add(rs.getString(4));
+            reslist.add(rs.getString(5));
+            /*String nume = rs.getString(2);
+            String usrname = rs.getString(4);
+            String email = rs.getString(5);
+            System.out.println(nume + "\t" + usrname +"\t" +email);*/
+            nrutilz++;  
         }
         rs.close();
+        return reslist;
     } catch (SQLException e ) {
         //JDBCTutorialUtilities.printSQLException(e);
     } finally {
         if (stmt != null) { stmt.close(); }
     }
-    return nrutilz;
+    return reslist;
     
 }
-    public static void createUser(String util, String parola) throws SQLException {
+    public static void createUser(String util, String parola, String usrname, String email) throws SQLException {
         //creaza un utilizator nou
         PreparedStatement ps = null;
         PreparedStatement ps1=null;
         ResultSet rs = null;
         try{
         con = (Connection) DriverManager.getConnection(url, username, password);
-        String insert ="INSERT INTO Users (PersonID, LastName, Parola) VALUES (?, ? ,?)";
+        String insert ="INSERT INTO Users (PersonID, LastName, Parola, username, email) VALUES (?, ? ,?, ?, ?)";
         String check="SELECT * FROM Users WHERE LastName = ?";
         //testeaza daca utilizatorul deja exista
         ps1=con.prepareStatement(check);
@@ -88,11 +93,13 @@ public class dbconnect {
         else {
             md5crypt parolaCriptata = new md5crypt();
             String parolaFinal=parolaCriptata.crypt(parola);
-            int nr=viewUser()+1;
+            int nr=nrutilz+1;
             ps=con.prepareStatement(insert);
             ps.setInt(1,nr);
             ps.setString(2, util);
             ps.setString(3, parolaFinal);
+            ps.setString(4, usrname);
+            ps.setString(5, email);
             ps.executeUpdate();  
         }
         }
@@ -163,6 +170,30 @@ public class dbconnect {
             con.close();
             return false;
         }
+    }
+        public static boolean checkExistence(String util) throws SQLException {
+        //verifica daca exista utilizatorul in bd. se foloseste la stergere
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            con = (Connection) DriverManager.getConnection(url, username, password);
+            String check="SELECT * FROM Users WHERE (LastName = ?)";
+            ps=con.prepareStatement(check);
+            ps.setString(1,util); 
+            rs=ps.executeQuery();
+            while (rs.next()) {
+                String nume = rs.getString(2);      
+                if (nume.equals(util))
+                {con.close(); return true; }   
+            }
+            return false;
+        }
+        catch (SQLException e) { 
+            System.out.println(e);
+            System.out.println("Nu s-a putut face interogarea.");
+            con.close();
+            return false;
+        }    
         
         
     }
@@ -171,36 +202,8 @@ public class dbconnect {
              return true;
          return false;
      }
-    public void populareTabel (javax.swing.JTable TabelDate) {
-        Statement stmt = null;
-        ResultSet rs = null;
-        try
-        {
-            con = (Connection) DriverManager.getConnection(url, username, password);
-            rs = stmt.executeQuery("SELECT * FROM Users");
-            
-            DefaultTableModel tm = (DefaultTableModel) TabelDate.getModel();
-            
-            //stergem toate liniile actuale din JTable
-            while (tm.getRowCount() > 0)
-                tm.removeRow(0);
-
-            //determinam numarul de coloane
-            int nr_col = rs.getMetaData().getColumnCount();
-            while (rs.next())
-            {
-                Object[] objects = new Object[nr_col];
-                for (int i = 0; i < nr_col; i++)
-                    objects[i] = rs.getObject(i + 1);
-                tm.addRow(objects);
-            }
-            rs.close();
-        } 
-        catch (SQLException ex)
-        {
-            System.out.println("Eroare la executarea interogarii!");
-        }
-    }
+    
+    
 }
 
 
