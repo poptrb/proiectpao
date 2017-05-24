@@ -39,6 +39,7 @@ public class dbconnect {
     }
     
     static ArrayList<String> reslist;
+    static ArrayList<String> chestlist; 
     static String res=null;
     public static ArrayList<String> viewUser() throws SQLException {
     Statement stmt = null;
@@ -56,16 +57,12 @@ public class dbconnect {
             reslist.add(rs.getString(2));
             reslist.add(rs.getString(4));
             reslist.add(rs.getString(5));
-            /*String nume = rs.getString(2);
-            String usrname = rs.getString(4);
-            String email = rs.getString(5);
-            System.out.println(nume + "\t" + usrname +"\t" +email);*/
             nrutilz++;  
         }
         rs.close();
         return reslist;
     } catch (SQLException e ) {
-        //JDBCTutorialUtilities.printSQLException(e);
+        
     } finally {
         if (stmt != null) { stmt.close(); }
     }
