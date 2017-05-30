@@ -39,7 +39,7 @@ public class admin extends javax.swing.JFrame {
         List<String> strings = new ArrayList<String>();
         strings=dchest.viewTables();
         for (int i = 0; i < strings.size(); i++)
-            jComboBox1.addItem(strings.get(i));
+            if (!(strings.get(i).equals("users")))jComboBox1.addItem(strings.get(i));
     }
 
     /** This method is called from within the constructor to
@@ -62,6 +62,7 @@ public class admin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jButton7 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -76,8 +77,6 @@ public class admin extends javax.swing.JFrame {
         jTextField9 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         label1 = new java.awt.Label();
@@ -95,6 +94,7 @@ public class admin extends javax.swing.JFrame {
         jTextField13 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         jButton2.setText("jButton2");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +125,7 @@ public class admin extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 21, Short.MAX_VALUE)
+            .addGap(0, 131, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -159,7 +159,7 @@ public class admin extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,17 +170,17 @@ public class admin extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Intrebare", "Raspuns 1", "Raspuns 2", "Raspuns 3", "Raspuns Corect"
+                "Chestionar", "Intrebare", "Raspuns Corect", "Raspuns 1", "Raspuns 2", "Raspuns 3"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -196,14 +196,26 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setText("Sterge chestionar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton7)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -214,6 +226,8 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton7)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -257,14 +271,6 @@ public class admin extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Creare Chestionar");
 
-        jLabel8.setText("Categorie Chestionar");
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
-
         jLabel9.setText("Titlu chestionar");
 
         label1.setText("Intrebare");
@@ -305,12 +311,19 @@ public class admin extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("Nr. inrebari");
+        jLabel11.setText("Nr. intrebari");
 
         jButton6.setText("Creare Chestionar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton1.setText("Inapoi la Login");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
             }
         });
 
@@ -351,7 +364,9 @@ public class admin extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jToggleButton1)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -359,15 +374,12 @@ public class admin extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel11))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                                            .addComponent(jTextField5))
+                                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButton4))
                                     .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -410,9 +422,7 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -463,8 +473,10 @@ public class admin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton6)
+                            .addComponent(jToggleButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton3)
@@ -549,8 +561,8 @@ public class admin extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        if (jTextField9.getText().equals("")) {
             String message = "Introduceti un utilizator pentru stergere.";
-        JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
-        JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+            JOptionPane.ERROR_MESSAGE);
             }
         else
         {
@@ -587,10 +599,6 @@ public class admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
@@ -615,9 +623,9 @@ public class admin extends javax.swing.JFrame {
     public int i=0;
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if ((!jTextField5.getText().equals("")) && (!jTextField6.getText().equals(""))&&(!jTextField13.getText().equals("")))
+        if ((!jTextField6.getText().equals(""))&&(!jTextField13.getText().equals("")))
         {
-            categ=jTextField5.getText();
+            
             nume=jTextField6.getText();
             nr=Integer.parseInt(jTextField13.getText());
             System.out.println(nr);
@@ -628,8 +636,8 @@ public class admin extends javax.swing.JFrame {
             //blocheaza accesul la campuri pentru a nu creea un nou chest in timp ce se introduc intrebari
             jTextField7.setEnabled(true);jTextField8.setEnabled(true);jTextField10.setEnabled(true);
             jTextField11.setEnabled(true);jTextField12.setEnabled(true);
-             jTextField5.setText("");jTextField6.setText("");jTextField13.setText("");
-            jTextField5.setEnabled(false);jTextField6.setEnabled(false);jTextField13.setEnabled(false);
+            jTextField6.setText("");jTextField13.setText("");
+            jTextField6.setEnabled(false);jTextField13.setEnabled(false);
             jButton5.setEnabled(true);jButton4.setEnabled(false);
         }
         else{
@@ -679,16 +687,13 @@ public class admin extends javax.swing.JFrame {
             {
                 //System.out.println(intrebari.get(i)+rasp.get(i)+raspcorect.get(i));
             }*/
-            jButton5.setEnabled(true);
-            jTextField5.setEnabled(true);
+            jButton5.setEnabled(true);;
             jTextField6.setEnabled(true);
             jTextField13.setEnabled(true);
             jButton4.setEnabled(true);
             jButton6.setEnabled(false);
             dchest.createChestionar(nume,nr,intrebari,rasp,raspcorect);
-            ArrayList<String> strings = dchest.viewTables();
-            for (int i = 0; i < strings.size(); i++)
-            jComboBox1.addItem(strings.get(i));
+            jComboBox1.addItem(nume);
         } catch (SQLException ex) {
             Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -697,23 +702,49 @@ public class admin extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         try {
             reslist = dchest.viewChestionar(jComboBox1.getSelectedItem().toString());
+            
         } catch (SQLException ex) {
             Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
         }
                     DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
                     while (tm.getRowCount() > 0)
                     tm.removeRow(0);
-                    int nr_col = 5;
-                    Object[] objects = new Object[5];
+                    int nr_col = 6;
+                    Object[] objects = new Object[6];
        
                     for (int j=0; j<reslist.size()/nr_col; j++){
                         for (int i = 0; i < nr_col; i++){
-                        objects[i] = reslist.get(5*j+i);
+                        objects[i] = reslist.get(6*j+i);
                     }
                     tm.addRow(objects);
                     }
     
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        try {
+            new user().setVisible(true);
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        //dupa stergere updatam si lista de chestionare
+        try {
+                System.out.println(jComboBox1.getSelectedItem().toString());
+                dchest.deleteChestionar(jComboBox1.getSelectedItem().toString());
+                
+                for (int i=0; i<jComboBox1.getItemCount(); i++)
+                    if (jComboBox1.getSelectedItem().toString().equals(jComboBox1.getItemAt(i)) ||
+                           jComboBox1.getSelectedItem().toString().equals("users"))
+                        jComboBox1.removeItemAt(i);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -765,6 +796,7 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -775,7 +807,6 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -794,11 +825,11 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JToggleButton jToggleButton1;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;

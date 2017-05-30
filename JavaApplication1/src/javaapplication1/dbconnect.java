@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +25,7 @@ public class dbconnect {
     static String url = "jdbc:mysql://localhost:3306/javabase";
     static String username = "root";
     static String password = "proiectpao";
+    
     public static Connection connect() {
         
     System.out.println("Conectare baza de date...");
@@ -33,7 +36,12 @@ public class dbconnect {
         } 
         
     catch (SQLException e) {
+        String message = "ERR";
+        message =message+e;
+        JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+        JOptionPane.ERROR_MESSAGE);
         throw new IllegalStateException("Cannot connect the database!", e);
+        
         }
         return con;
     }

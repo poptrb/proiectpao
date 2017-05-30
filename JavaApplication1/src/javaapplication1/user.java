@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -118,10 +120,14 @@ public class user extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            if (dbase.checkUser(jTextField1.getText(),jPasswordField1.getText()))
-                System.out.println("registered!");
+            if (dbase.checkUser(jTextField1.getText(),jPasswordField1.getText())){
+                new membru().setVisible(true);
+                this.setVisible(false);
+            }
             else {
-                System.out.println("Username sau parola gresite!");
+                String message = "Username sau parola gresite.";
+                JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+                JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(user.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,28 +177,10 @@ public class user extends javax.swing.JFrame {
         //</editor-fold>
         
         dbase.connect();
-        
-        //dbase.deleteUser("iulian");
-        dbase.viewUser();
-        
-        
-        dchest.deleteChestionar("Muzica7");
         ArrayList<String> intrebari1 = new ArrayList<String>();
         ArrayList<String> rasp1 = new ArrayList<String>();
         ArrayList<Integer> raspc = new ArrayList<Integer>();
-        intrebari1.add("a1");
-        intrebari1.add("a2");
-        rasp1.add("r1"); rasp1.add("r2");rasp1.add("r2");rasp1.add("r2");rasp1.add("r2");rasp1.add("r2");
-        raspc.add(1); raspc.add(2);
-        dchest.createChestionar("Muzica7",2,intrebari1,rasp1,raspc);
-        dchest.viewChestionar("Muzica7");
-        dchest.viewChestionar("chest2");
-        ArrayList<String> a1= dchest.viewTables();
         
-        //dbase.deleteUser("mihai");
-        
-        
-        System.out.println(dbase.checkUser("iulian","1265"));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {

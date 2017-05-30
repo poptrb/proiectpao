@@ -74,6 +74,7 @@ public class dbchestionar {
             }
         }    
     }
+    
     static ArrayList<String> chestlist; 
     static ArrayList<String> reslist;
     static String res=null;
@@ -102,15 +103,9 @@ public class dbchestionar {
                 reslist.add(rs.getString(3));
                 reslist.add(rs.getString(4));
                 reslist.add(rs.getString(5));
-                System.out.println("reslist content");
-                
-                //System.out.println(numeChest + "\t" + CorpIntrebare +"\t" +Rasp+"\t" + raspunsuri[1]+"\t"+raspunsuri[2]+"\t"+raspunsuri[3]+"\t");
                 
             }
-            for (int i=0; i<reslist.size(); i++)
-                {
-                    System.out.print(reslist.get(i)+"\t");
-                }
+            
             return reslist;
         }
          catch (SQLException e) { 
@@ -137,6 +132,7 @@ public class dbchestionar {
     }
     public static ArrayList<String> viewTables() throws SQLException 
     {
+        //afiseaza toate chestionarele
         try{
             con = (Connection) DriverManager.getConnection(url, username, password);
             String view = "SHOW tables";
